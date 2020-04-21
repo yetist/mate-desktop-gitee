@@ -1,9 +1,19 @@
-steps:
-- name: Mirror the Github mate-desktop repos to Gitee.
-  uses: Yikun/hub-mirror-action@master
-  with:
-    src: github/mate-desktop
-    dst: gitee/mate-desktop
-    #dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
-    dst_token: ${{ secrets.GITEE_TOKEN }}
-    account_type: org
+name: Gitee repos mirror action
+on:
+# 如果需要PR触发把push前的#去掉
+# push:
+  schedule:
+    # 每天北京时间9点跑
+    - cron:  '38 2 * * *'
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Mirror the Github mate-desktop repos to Gitee.
+      uses: Yikun/hub-mirror-action@master
+      with:
+        src: github/mate-desktop
+        dst: gitee/mate-desktop
+        #dst_key: ${{ secrets.GITEE_PRIVATE_KEY }}
+        dst_token: ${{ secrets.GITEE_TOKEN }}
+        account_type: org
